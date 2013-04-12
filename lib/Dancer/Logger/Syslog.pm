@@ -48,6 +48,7 @@ sub _log {
         debug   => 'debug',
         warning => 'warning',
         error   => 'err',
+        info    => 'info',
     };
     $level = $syslog_levels->{$level} || 'debug';
     my $fm = $self->format_message($level => $message);
