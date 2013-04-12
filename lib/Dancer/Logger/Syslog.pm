@@ -16,7 +16,11 @@ sub init {
     my ($self) = @_;
     my $basename = setting('appname') || $ENV{DANCER_APPDIR} || basename($0);
     setlogsock('unix');
-    openlog($basename, 'pid', 'USER');
+
+    my $conf = setting('sys_syslog');
+    my $facility = $conf->{facility} // 'USER';
+
+    openlog($basename, 'pid', $facility);
 }
 
 sub DESTROY { closelog() }
@@ -48,6 +52,7 @@ sub _log {
         debug   => 'debug',
         warning => 'warning',
         error   => 'err',
+        info    => 'info',
     };
     $level = $syslog_levels->{$level} || 'debug';
     my $fm = $self->format_message($level => $message);
@@ -73,13 +78,19 @@ through the Sys::Syslog module.
 The setting B<logger> should be set to C<syslog> in order to use this session
 engine in a Dancer application.
 
+You can also specify the facility to log to via the 'facility' parameter, e.g.
+
+ sys_syslog:
+   facility: 'local0'
+
+The default facility is 'USER'.
+
 =head1 METHODS
 
 =head2 init()
 
 The init method is called by Dancer when creating the logger engine
-with this class. It will initiate a Syslog connection under the B<USER>
-facility.
+with this class.
 
 =head2 format_message()
 
