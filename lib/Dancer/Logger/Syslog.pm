@@ -10,7 +10,7 @@ use Sys::Syslog qw(:DEFAULT setlogsock);
 
 use Dancer::Config 'setting';
 
-$VERSION = '0.2';
+$VERSION = '0.3';
 
 sub init {
     my ($self) = @_;
