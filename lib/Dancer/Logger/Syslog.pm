@@ -18,7 +18,7 @@ sub init {
     setlogsock('unix');
 
     my $conf = setting('sys_syslog');
-    my $facility = $conf->{facility} // 'USER';
+    my $facility = $conf->{facility} || 'USER';
 
     openlog($basename, 'pid', $facility);
 }
