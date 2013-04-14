@@ -17,7 +17,7 @@ sub init {
     my $basename = setting('appname') || $ENV{DANCER_APPDIR} || basename($0);
     setlogsock('unix');
 
-    my $conf = setting('sys_syslog');
+    my $conf = setting('syslog');
     my $facility = $conf->{facility} || 'USER';
 
     openlog($basename, 'pid', $facility);
@@ -80,7 +80,7 @@ engine in a Dancer application.
 
 You can also specify the facility to log to via the 'facility' parameter, e.g.
 
- sys_syslog:
+ syslog:
    facility: 'local0'
 
 The default facility is 'USER'.
