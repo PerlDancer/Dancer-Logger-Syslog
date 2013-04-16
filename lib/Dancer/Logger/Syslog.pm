@@ -18,9 +18,10 @@ sub init {
     setlogsock('unix');
 
     my $conf = setting('syslog');
-    my $facility = $conf->{facility} || 'USER';
 
-    openlog($basename, 'pid', $facility);
+    $self->{facility} = $conf->{facility} || 'USER';
+    $self->{ident}    = $conf->{ident}    || $basename;
+    $self->{logopt}   = $conf->{logopt}   || 'pid';
 }
 
 sub DESTROY { closelog() }
@@ -47,6 +48,12 @@ sub format_message {
 
 sub _log {
     my ($self, $level, $message) = @_;
+
+    if (!$self->{log_opened}) {
+        openlog($self->{ident}, $self->{logopt}, $self->{facility});
+        $self->{log_opened} = 1;
+    }
+
     my $syslog_levels = {
         core    => 'debug',
         debug   => 'debug',
@@ -54,6 +61,7 @@ sub _log {
         error   => 'err',
         info    => 'info',
     };
+
     $level = $syslog_levels->{$level} || 'debug';
     my $fm = $self->format_message($level => $message);
     return syslog($level, $fm);
@@ -78,12 +86,31 @@ through the Sys::Syslog module.
 The setting B<logger> should be set to C<syslog> in order to use this session
 engine in a Dancer application.
 
-You can also specify the facility to log to via the 'facility' parameter, e.g.
+You can also specify the other configuration via the 'syslog' config key, e.g.
 
  syslog:
    facility: 'local0'
+   ident: 'my_app'
 
-The default facility is 'USER'.
+The allowed options are:
+
+=over 4
+
+=item * 
+
+facility: Which syslog facility to use, defaults to 'USER'
+
+=item *
+
+ident: Sring prepended to every log line, defaults to the configured 'appname', or 
+will use the executable's basename if not defined.
+
+=item *
+
+logopts: Log options passed top C<openlog()> as per Sys::Syslog's docs. Defaults to
+'pid'. 
+
+=back  
 
 =head1 METHODS
 
