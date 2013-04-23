@@ -14,13 +14,15 @@ $VERSION = '0.3';
 
 sub init {
     my ($self) = @_;
-    my $basename = setting('appname') || $ENV{DANCER_APPDIR} || basename($0);
     setlogsock('unix');
 
     my $conf = setting('syslog');
 
     $self->{facility} = $conf->{facility} || 'USER';
-    $self->{ident}    = $conf->{ident}    || $basename;
+    $self->{ident}    = $conf->{ident}    
+                            || setting('appname') 
+                            || $ENV{DANCER_APPDIR} 
+                            || basename($0);
     $self->{logopt}   = $conf->{logopt}   || 'pid';
 }
 
@@ -96,18 +98,18 @@ The allowed options are:
 
 =over 4
 
-=item * 
+=item facility 
 
-facility: Which syslog facility to use, defaults to 'USER'
+Which syslog facility to use, defaults to 'USER'
 
-=item *
+=item ident 
 
-ident: Sring prepended to every log line, defaults to the configured 'appname', or 
-will use the executable's basename if not defined.
+String prepended to every log line, defaults to the configured I<appname> or,
+if not defined, to the executable's basename.
 
-=item *
+=item logopt
 
-logopts: Log options passed top C<openlog()> as per Sys::Syslog's docs. Defaults to
+Log options passed top C<openlog()> as per Sys::Syslog's docs. Defaults to
 'pid'. 
 
 =back  
