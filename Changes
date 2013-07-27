@@ -1,5 +1,9 @@
 Revision history for Dancer-Logger-Syslog
 
+0.5 2013-07-27
+    * Add repository and bugtracker information to META. 
+    * Normalize changelog (GH#5, Sergey Romanov)
+
 0.4 2013-04-22
     * Call 'openlog()' in all child processes. (GH#4, Sam Crawley)
 
