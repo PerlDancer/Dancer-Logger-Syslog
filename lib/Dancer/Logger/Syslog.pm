@@ -3,14 +3,13 @@ package Dancer::Logger::Syslog;
 use strict;
 use warnings;
 
-use vars '$VERSION';
 use base 'Dancer::Logger::Abstract';
 use File::Basename 'basename';
 use Sys::Syslog qw(:DEFAULT setlogsock);
 
 use Dancer::Config 'setting';
 
-$VERSION = '0.4';
+our $VERSION = '0.4';
 
 sub init {
     my ($self) = @_;
