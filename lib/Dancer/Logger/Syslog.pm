@@ -1,16 +1,14 @@
 package Dancer::Logger::Syslog;
+# ABSTRACT: Dancer logger engine for Sys::Syslog
 
 use strict;
 use warnings;
 
-use vars '$VERSION';
 use base 'Dancer::Logger::Abstract';
 use File::Basename 'basename';
 use Sys::Syslog qw(:DEFAULT setlogsock);
 
 use Dancer::Config 'setting';
-
-$VERSION = '0.4';
 
 sub init {
     my ($self) = @_;
@@ -74,10 +72,6 @@ __END__
 
 =pod
 
-=head1 NAME
-
-Dancer::Logger::Syslog - Dancer logger engine for Sys::Syslog
-
 =head1 DESCRIPTION
 
 This module implements a logger engine that send log messages to syslog,
@@ -131,21 +125,8 @@ already provides a couple of information.
 
 This module depends on L<Sys::Syslog>.
 
-=head1 AUTHOR
-
-This module has been written by Alexis Sukrieh
-
 =head1 SEE ALSO
 
 See L<Dancer> for details about logging in route handlers.
-
-=head1 COPYRIGHT
-
-This module is copyright (c) 2010 Alexis Sukrieh <sukria@sukria.net>.
-
-=head1 LICENSE
-
-This module is free software and is released under the same terms as Perl
-itself.
 
 =cut
