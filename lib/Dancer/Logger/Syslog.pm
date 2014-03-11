@@ -26,26 +26,6 @@ sub init {
 
 sub DESTROY { closelog() }
 
-# our format should be a bit cooked for syslog
-sub format_message {
-    my ($self, $level, $message) = @_;
-    chomp $message;
-
-    my ($package, $file, $line) = caller(3);
-    $package ||= '-';
-    $file    ||= '-';
-    $line    ||= '-';
-
-    my $time = Dancer::SharedData->timer->tick;
-    my $r    = Dancer::SharedData->request;
-    if (defined $r) {
-        return "\@$time> [hit #" . $r->id . "] $message in $file l. $line\n";
-    }
-    else {
-        return "\@$time> $message in $file l. $line\n";
-    }
-}
-
 sub _log {
     my ($self, $level, $message) = @_;
 
