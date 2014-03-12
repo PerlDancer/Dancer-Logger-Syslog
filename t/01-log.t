@@ -18,7 +18,7 @@ can_ok $l, qw(init _log debug warning error);
 
 SKIP: { 
     eval { $l->_log(debug => "dummy test") };
-    skip "Need a SysLog connection to run last tests", 4 
+    skip "Need a SysLog connection to run last tests", 5 
         if $@ =~ /no connection to syslog available/;
 
     ok($l->_log(debug => "Perl Dancer test message 1/4"), "_log works");
