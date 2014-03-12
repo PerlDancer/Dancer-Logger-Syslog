@@ -1,6 +1,9 @@
 package Dancer::Logger::Syslog;
+BEGIN {
+  $Dancer::Logger::Syslog::AUTHORITY = 'cpan:SUKRIA';
+}
 # ABSTRACT: Dancer logger engine for Sys::Syslog
-
+$Dancer::Logger::Syslog::VERSION = '0.6';
 use strict;
 use warnings;
 
@@ -48,9 +51,20 @@ sub _log {
 }
 
 1;
+
 __END__
 
 =pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+Dancer::Logger::Syslog - Dancer logger engine for Sys::Syslog
+
+=head1 VERSION
+
+version 0.6
 
 =head1 DESCRIPTION
 
@@ -86,7 +100,7 @@ if not defined, to the executable's basename.
 Log options passed top C<openlog()> as per Sys::Syslog's docs. Defaults to
 'pid'. 
 
-=back  
+=back
 
 =head1 METHODS
 
@@ -108,5 +122,26 @@ This module depends on L<Sys::Syslog>.
 =head1 SEE ALSO
 
 See L<Dancer> for details about logging in route handlers.
+
+=head1 AUTHORS
+
+=over 4
+
+=item *
+
+Alexis Sukrieh <sukria@sukria.net>
+
+=item *
+
+Yanick Champoux <yanick@cpan.org>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2010 by Alexis Sukrieh.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
