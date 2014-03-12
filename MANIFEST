@@ -14,7 +14,6 @@ t/00-compile.t
 t/00-load.t
 t/000-report-versions-tiny.t
 t/01-log.t
-t/manifest.t
 t/pod-coverage.t
 t/pod.t
 xt/release/unused-vars.t
