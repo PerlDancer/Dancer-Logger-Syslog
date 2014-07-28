@@ -59,7 +59,7 @@ through the Sys::Syslog module.
 
 =head1 CONFIGURATION
 
-The setting B<logger> should be set to C<syslog> in order to use this session
+The setting B<logger> should be set to C<syslog> in order to use this logger
 engine in a Dancer application.
 
 You can also specify the other configuration via the 'syslog' config key, e.g.
